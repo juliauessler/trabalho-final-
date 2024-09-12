@@ -13,10 +13,10 @@ db.authenticate()
 app.use(express.json());
 
 // Importar rotas
-const produtosRoutes = require('./rotas/rotasprodutos');
+const dormitoriosRoutes = require('./rotas/rotasmoradores');
 
 // Usar rotas
-app.use('/api', produtosRoutes);
+app.use('/api', dormitoriosRoutes);
 
 // Iniciar o servidor
 const PORT = process.env.PORT || 3000;
