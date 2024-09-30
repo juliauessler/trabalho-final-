@@ -1,0 +1,7 @@
+Passo a passo:
+1. Criar tabelas no banco
+2. Mudar as classes de modelo (sempre a partir do exemplo)
+3. Mudar controlador
+4. Mudar rotas
+5. Corrigir as cagadas (tenta rodar)
+6. Testar com postman (programa da pizza)

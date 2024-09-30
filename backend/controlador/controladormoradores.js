@@ -1,10 +1,11 @@
-const morador = require('../modelo/morador');
+const { where, Op } = require('sequelize');
+const Morador = require('../modelo/morador');
 
 
-const moradorController = {
+const MoradorController = {
     createmorador: async (req, res) => {
         try {
-            const novomorador = await morador.create(req.body);
+            const novomorador = await Morador.create(req.body);
             res.json(novomorador);
         } catch (error) {
             res.status(500).send(error.message);
@@ -13,20 +14,24 @@ const moradorController = {
 
     getAllMoradores: async (req, res) => {
         try {
-            const controladores = await morador.findAll();
+            const controladores = await Morador.findAll();
             res.json(controladores);
         } catch (error) {
             res.status(500).send(error.message);
         }
     },
 
-    getmoradorById: async (req, res) => {
+    getmoradorByQuarto: async (req, res) => {
         try {
-            const morador = await morador.findByPk(req.params.id);
-            if (!morador) {
-                return res.status(404).send('morador não encontrado');
+            const moradores = await Morador.findAll({
+                where: {
+                    quartos: req.params.quartos
+                }
+            });
+            if(!moradores){
+                res.status(200).body([]);
             }
-            res.json(morador);
+            res.json(moradores)
         } catch (error) {
             res.status(500).send(error.message);
         }
@@ -34,7 +39,7 @@ const moradorController = {
 
     updatemorador: async (req, res) => {
         try {
-            const morador = await morador.findByPk(req.params.id);
+            const morador = await Morador.findByPk(req.params.id);
             if (!morador) {
                 return res.status(404).send('morador não encontrado');
             }
@@ -47,7 +52,7 @@ const moradorController = {
 
     deletemorador: async (req, res) => {
         try {
-            const morador = await morador.findByPk(req.params.id);
+            const morador = await Morador.findByPk(req.params.id);
             if (!morador) {
                 return res.status(404).send('morador não encontrado');
             }
@@ -63,4 +68,4 @@ const moradorController = {
     // ... (a ser implementado)
 };
 
-module.exports = moradorController;
+module.exports = MoradorController;

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!-- saved from url=(0101)https://ava.sesisenai.org.br/pluginfile.php/1052840/mod_resource/content/2/Lista%20de%20moradores.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de moradores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        .lista-moradores {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .cartao-moradores {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 200px;
+            padding: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cartao-moradores img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+        }
+        
+        .cartao-moradores h2 {
+            font-size: 18px;
+            margin: 0 0 10px;
+        }
+        
+        .cartao-moradores p {
+            margin: 0;
+            color: #555;
+        }
+        
+        .cartao-moradores span {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }        
+    </style>
+</head>
+<body>
+    <h1>moradores à Venda</h1>
+    <div id="lista-moradores" class="lista-moradores"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('http://localhost:3000/api/moradores')
+                .then(response => response.json())
+                .then(moradores => {
+                    const listamoradores = document.getElementById('lista-moradores');
+                    for(i=0; i<listamoradores.length; i++){
+                        const moradores = listamoradores[i]
+                        const cartaomoradores = document.createElement('div');
+                        cartaomoradores.className = 'cartao-moradores';
+                        
+                        cartaomoradores.innerHTML = `
+                            <img src="https://wx.mlcdn.com.br/ponzi/production/portaldalu/49646.jpg?ims=fit-in/960x" alt="${moradores.nome_moradores}">
+                            <h2>${moradores.nome_moradores}</h2>
+                            <p>${moradores.descricao}</p>
+                            <span>R$ ${moradores.preco}</span>
+                        `;
+                        
+                        listamoradores.appendChild(cartaomoradores);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar moradores:', error);
+                });
+        });
+        
+    </script>
+
+
+</body></html>

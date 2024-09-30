@@ -8,8 +8,8 @@ router.post('/moradores', moradorController.createmorador);
 // Rota para obter todos os moradors
 router.get('/moradores', moradorController.getAllMoradores);
 
-// Rota para obter um morador pelo ID
-router.get('/moradores/:id', moradorController.getmoradorById);
+// Rota para obter um morador pelo QUARTO
+router.get('/moradores/:quartos', moradorController.getmoradorByQuarto);
 
 // Rota para atualizar um morador
 router.put('/moradores/:id', moradorController.updatemorador);

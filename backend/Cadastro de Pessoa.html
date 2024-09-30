@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- saved from url=(0087)https://ava.sesisenai.org.br/pluginfile.php/1064482/mod_resource/content/1/request.html -->
+<html lang="pt-br"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de moradores</title>
+</head>
+
+<body>
+    <h1>Cadastro de moradores</h1>
+
+    <label for="nome_morador">nome_morador:</label>
+    <input type="text" id="nome_morador" placeholder="Digite o nome_morador"><br><br>
+
+    <label for="cpf">cpf:</label>
+    <input type="cpf" id="cpf" placeholder="Digite o cpf"><br><br>
+
+    <label for="quartos">quartos:</label>
+    <input type="number" id="quartos" placeholder="Digite a quartos"><br><br>
+
+    <label for="datanascimento">datanascimento:</label>
+    <input type="number" id="datanascimento" placeholder="Digite a datanascimento"><br><br>
+    <button onclick="cadastrarmoradores()">Cadastrar</button>
+
+    <script>
+        function cadastrarmoradores() {
+            // Captura os valores dos inputs
+            const nome_morador = document.getElementById('nome_morador').value;
+            const cpf = document.getElementById('cpf').value;
+            const quartos = document.getElementById('quartos').value;
+            const datanascimento = document.getElementById('datanascimento').value;
+
+            // Cria o objeto com os dados
+            const moradores = {
+                nome_morador_morador: nome_morador,
+                cpf: cpf,
+                datanascimento: datanascimento,
+                quartoss: parseInt(quartos, 10) // Converte a quartos para número
+            };
+
+            // Faz a solicitação POST para o backend
+            fetch('http://localhost:3000/moradores', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(moradores)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Erro ao cadastrar a moradores');
+                })
+                .then(data => {
+                    console.log('moradores cadastrada com sucesso:', data);
+                    // Limpar os campos de entrada após o envio
+                    document.getElementById('nome_morador').value = '';
+                    document.getElementById('cpf').value = '';
+                    document.getElementById('quartos').value = '';
+                    document.getElementById('datanascimento').value = '';
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                });
+        }
+    </script>
+
+
+</body></html>
